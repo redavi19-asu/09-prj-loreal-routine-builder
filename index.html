@@ -17,67 +17,112 @@
 
   <body>
     <div class="page-wrapper">
-      <!------- Header / Branding ------->
       <header class="site-header">
         <img src="img/loreal-logo.png" alt="L'Oréal Logo" class="logo" />
         <h1 class="site-title">Smart Routine &amp; Product Advisor</h1>
+        <p class="site-subtitle">
+          Discover, select, and build a personalized regimen powered by L'Oréal
+          science.
+        </p>
       </header>
 
-      <!-- Category Filter -->
-      <div class="search-section">
-        <select id="categoryFilter">
-          <option value="" disabled selected>Choose a Category</option>
-          <option value="cleanser">Cleansers</option>
-          <option value="moisturizer">Moisturizers & Treatments</option>
-          <option value="haircare">Haircare</option>
-          <option value="makeup">Makeup</option>
-          <option value="hair color">Hair Color</option>
-          <option value="hair styling">Hair Styling</option>
-          <option value="men's grooming">Men's Grooming</option>
-          <option value="suncare">Suncare</option>
-          <option value="fragrance">Fragrance</option>
-        </select>
-      </div>
+      <main>
+        <section class="filters" aria-label="Product search filters">
+          <div class="filter-group">
+            <label for="categoryFilter">Filter by category</label>
+            <select id="categoryFilter">
+              <option value="" selected>All categories</option>
+            </select>
+          </div>
 
-      <!-- Products Grid -->
-      <div id="productsContainer" class="products-grid"></div>
+          <div class="filter-group">
+            <label for="searchInput">Search products</label>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search by product or brand"
+              autocomplete="off"
+            />
+          </div>
 
-      <!-- Selected Products -->
-      <div class="selected-products">
-        <h2>Selected Products</h2>
-        <div id="selectedProductsList"></div>
-        <button id="generateRoutine" class="generate-btn">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Routine
-        </button>
-      </div>
+          <div class="toggle-group" aria-label="Interface options">
+            <button
+              type="button"
+              id="rtlToggle"
+              class="pill-btn"
+              aria-pressed="false"
+            >
+              Enable RTL Layout
+            </button>
 
-      <!------- Chat Area ------->
-      <section class="chatbox">
-        <h2>Let's Build Your Routine</h2>
-        <div id="chatWindow" class="chat-window"></div>
+            <label class="switch">
+              <input type="checkbox" id="webSearchToggle" />
+              <span class="switch-slider" aria-hidden="true"></span>
+              <span class="switch-label">Live web search</span>
+            </label>
+          </div>
+        </section>
 
-        <form id="chatForm" class="chat-form">
-          <label for="userInput" class="visually-hidden">Message</label>
-          <input
-            id="userInput"
-            name="userInput"
-            type="text"
-            placeholder="Ask me about products or routines…"
-            autocomplete="off"
-            required
-          />
-          <button type="submit" id="sendBtn">
-            <i class="fa-solid fa-paper-plane"></i>
-            <span class="visually-hidden">Send</span>
+        <section class="products" aria-label="Product results">
+          <div id="productsContainer" class="products-grid" role="list"></div>
+          <p id="productsEmpty" class="placeholder-message" hidden>
+            Try choosing a category or updating your search to see matching
+            products.
+          </p>
+        </section>
+
+        <section class="selected-products" aria-label="Selected products">
+          <div class="selected-header">
+            <h2>Selected Products</h2>
+            <button type="button" id="clearSelections" class="pill-btn">
+              Clear All
+            </button>
+          </div>
+          <div
+            id="selectedProductsList"
+            class="selected-products-list"
+            aria-live="polite"
+          ></div>
+          <button id="generateRoutine" class="generate-btn" type="button">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Routine
           </button>
-        </form>
-      </section>
+        </section>
 
-      <!------- Footer Links ------->
+        <section class="chatbox" aria-label="Routine advisor chat">
+          <div class="chatbox-header">
+            <h2>Let's Build Your Routine</h2>
+            <p id="chatStatus" class="chat-status" aria-live="polite"></p>
+          </div>
+          <div
+            id="chatWindow"
+            class="chat-window"
+            aria-live="polite"
+            aria-atomic="false"
+          ></div>
+
+          <form id="chatForm" class="chat-form">
+            <label for="userInput" class="visually-hidden"
+              >Ask a follow-up question</label
+            >
+            <input
+              id="userInput"
+              name="userInput"
+              type="text"
+              placeholder="Ask about your routine, skincare, haircare, makeup, or fragrance…"
+              autocomplete="off"
+              required
+            />
+            <button type="submit" id="sendBtn">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span class="visually-hidden">Send message</span>
+            </button>
+          </form>
+        </section>
+      </main>
+
       <footer class="site-footer">
         <p>&copy; 2025 L'Oréal. All rights reserved.</p>
         <nav>
-          <!-- These URLs are placeholders -->
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
           <a href="#">Contact</a>
@@ -85,7 +130,6 @@
       </footer>
     </div>
 
-    <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
     <script src="secrets.js"></script>
     <script src="script.js"></script>
   </body>
